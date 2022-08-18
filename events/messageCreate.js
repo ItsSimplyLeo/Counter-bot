@@ -25,6 +25,8 @@ module.exports = {
             let previousMessage = messages[1];
 
             count = parseInt(previousMessage)
+            if (isNaN(count)) count = 0;
+            
             var contentCount = parseInt(content);
             if (contentCount === count + 1) {
                 count = contentCount;
