@@ -20,4 +20,20 @@ const Tags = sequelize.define('counters', {
     }
 });
 
-module.exports = { Tags }
+const trackedGuilds = []
+
+async function getGuild(guildId) {
+
+	if (trackedGuilds[guildId] != null) return trackedGuilds[guildId]
+
+	const tag = await Tags.findOne({ where: { guildId: guildId } });
+
+	if (tag == null) {
+		return null;
+	}
+
+	trackedGuilds[guildId] = tag.channelId;
+	return trackedGuilds[guildId];
+}
+
+module.exports = { Tags, getGuild }
